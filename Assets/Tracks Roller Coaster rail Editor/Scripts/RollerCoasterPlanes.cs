@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class RollerCoasterPlanes : MonoBehaviour {
 
 	// Use this for initialization
 	public float elapsed;
 	public Transform seatObject;
-
+	public Camera main;
 	public float speedFactor=0.1f;
-	public Transform[] railPoints;
+	public List<Transform> railPoints = new List<Transform>();
 	public float maxHeight=27;
 	public bool hidepoints=false;
 	public bool showPath=true;
@@ -24,23 +24,50 @@ public class RollerCoasterPlanes : MonoBehaviour {
 
 	int indexCurrent=0,indexNext=1;
 
-	void Start () 
+	public void CanMove ()
+	{
+		if(canMove)
+		{
+			canMove = false;
+			main.enabled = true;
+			seatObject.GetComponentInChildren<Camera>().enabled = false;
+		}
+		else
+		{
+			canMove = true;
+			main.enabled = false;
+			seatObject.GetComponentInChildren<Camera>().enabled = true;
+		}
+	}
+	public void CreateTrack () 
 	{
 
 		// lets find all the rails vertex (geomety)
 
-		numberOfRails=transform.childCount;
-		railPoints=new Transform[numberOfRails];
+		//numberOfRails=transform.childCount;
+		numberOfRails = railPoints.Count;
+		//railPoints=new Transform[numberOfRails];
 		for(int jj=0; jj<numberOfRails;jj++)
 		{
-			railPoints[jj]=transform.GetChild(jj).transform;
+			//railPoints[jj]=transform.GetChild(jj).transform;
 
 			// hide the markers
 			if(hidepoints==true)
 			{
+				/* 
 				for(int kk=0; kk<3;kk++)
 				{
+					// Turning points off
 					transform.GetChild(jj).transform.GetChild(kk).GetComponent<Renderer>().enabled=false;
+				}
+				*/
+				foreach (Transform g in railPoints)
+				{
+					for(int kk=0; kk<3;kk++)
+					{
+						// Turning points off
+						g.GetChild(kk).GetComponent<Renderer>().enabled=false;
+					}
 				}
 			}
 
@@ -67,7 +94,7 @@ public class RollerCoasterPlanes : MonoBehaviour {
 	void drawGeometry()
 	{
 
-
+		Debug.Log("*****");
 		GameObject child;
 
 		MeshFilter tempMeshF;
@@ -147,7 +174,7 @@ public class RollerCoasterPlanes : MonoBehaviour {
 				elapsed= speedFactor*Mathf.Pow(maxHeight-seatObject.position[1],0.2f) /distanceToNextPoint;
 				distanceToNextPoint= (railPoints[indexNext].position-railPoints[indexCurrent].position).magnitude;
 
-				Debug.Log("setting new point");
+				//Debug.Log("setting new point");
 
 			}
 
