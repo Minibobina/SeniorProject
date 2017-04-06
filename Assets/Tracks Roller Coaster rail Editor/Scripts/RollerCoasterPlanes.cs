@@ -76,7 +76,7 @@ public class RollerCoasterPlanes : MonoBehaviour {
 
 		if(showPath==true)
 		{
-			drawGeometry();
+			//drawGeometry();
 		}
 
 		elapsed=0;

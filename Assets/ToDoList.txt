@@ -1,0 +1,13 @@
+To Do List
+
+1. Aglinment correction
+2. Check for complete
+3. Placement shaders
+4. Upward and downward aglinment
+5. Unit collision
+
+
+UI
+ - Camera Zoom / Roate
+ - Complete Track
+ - Which Mode to video in

@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Creator/Sandbox.unity
+- path: Assets/Creator - Colin/Sandbox.unity
   isLoaded: 1
   isActive: 1
